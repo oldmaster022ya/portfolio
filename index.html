@@ -12,6 +12,7 @@
     --line:#dcd9cf;
     --accent:#1f7a5c;
     --accent-soft:#e4efe9;
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
   }
   *{box-sizing:border-box;}
   body{
@@ -21,137 +22,96 @@
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.55;
   }
-  .wrap{
-    max-width:640px;
-    margin:0 auto;
-    padding:72px 24px 96px;
-  }
-  header{
-    margin-bottom:64px;
-  }
-  .role{
-    font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
-    font-size:13px;
-    color:var(--accent);
-    letter-spacing:0.02em;
-    margin:0 0 14px;
-  }
-  h1{
-    font-size:34px;
-    line-height:1.2;
-    margin:0 0 18px;
-    font-weight:650;
-    letter-spacing:-0.01em;
-  }
-  .lede{
-    font-size:17px;
-    color:var(--ink-soft);
-    max-width:46ch;
-    margin:0;
-  }
-  section h2{
-    font-size:13px;
-    font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
-    color:var(--ink-soft);
-    font-weight:500;
-    margin:0 0 24px;
-    letter-spacing:0.02em;
-  }
-  .project{
-    border-top:1px solid var(--line);
-    padding:28px 0;
-    display:grid;
-    grid-template-columns:1fr;
-    row-gap:8px;
-  }
-  .project:last-child{border-bottom:1px solid var(--line);}
-  .project-top{
-    display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    gap:16px;
-    flex-wrap:wrap;
-  }
-  .project-name{
-    font-size:19px;
-    font-weight:650;
-    margin:0;
-  }
-  .status{
-    font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
-    font-size:12px;
-    color:var(--accent);
+  .wrap{ max-width:640px; margin:0 auto; padding:72px 24px 96px; }
+
+  header{ display:flex; align-items:center; gap:20px; margin-bottom:64px; }
+  .avatar{
+    width:64px; height:64px; border-radius:50%;
+    object-fit:cover; flex:none;
     background:var(--accent-soft);
-    padding:3px 9px;
-    border-radius:3px;
-    white-space:nowrap;
   }
-  .project p{
-    margin:0;
-    color:var(--ink-soft);
-    font-size:15.5px;
-    max-width:52ch;
+  .role{ font-family:var(--mono); font-size:13px; color:var(--accent); letter-spacing:.02em; margin:0 0 10px; }
+  h1{ font-size:30px; line-height:1.2; margin:0 0 12px; font-weight:650; letter-spacing:-.01em; }
+  .lede{ font-size:16px; color:var(--ink-soft); max-width:46ch; margin:0; }
+
+  section h2{ font-family:var(--mono); font-size:13px; color:var(--ink-soft); font-weight:500; margin:0 0 24px; letter-spacing:.02em; }
+
+  .project{ border-top:1px solid var(--line); padding:28px 0; }
+  .project:last-child{ border-bottom:1px solid var(--line); }
+  .project-top{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:10px; }
+  .project-name{ font-size:19px; font-weight:650; margin:0; }
+  .status{ font-family:var(--mono); font-size:12px; color:var(--accent); background:var(--accent-soft); padding:3px 9px; border-radius:3px; white-space:nowrap; }
+  .status.local{ color:#8a5a1f; background:#f3e8d8; }
+  .project p{ margin:0 0 14px; color:var(--ink-soft); font-size:15.5px; max-width:52ch; }
+  .project a.link{ color:var(--ink); font-size:15px; text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:1px; }
+  .project a.link:hover{ color:var(--accent); }
+
+  .shot{
+    display:block; width:100%; aspect-ratio:16/9; object-fit:cover;
+    border-radius:6px; margin-bottom:14px; background:var(--accent-soft);
   }
-  .project a{
-    color:var(--ink);
-    font-size:15px;
-    text-decoration:none;
-    border-bottom:1px solid var(--accent);
-    align-self:flex-start;
-    padding-bottom:1px;
+
+  /* carousel */
+  .carousel{ position:relative; margin-bottom:14px; }
+  .car-track{
+    display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+    border-radius:6px; scrollbar-width:none;
   }
-  .project a:hover{color:var(--accent);}
-  footer{
-    margin-top:72px;
-    padding-top:28px;
-    border-top:1px solid var(--line);
+  .car-track::-webkit-scrollbar{ display:none; }
+  .car-track img{
+    flex:0 0 100%; width:100%; aspect-ratio:16/9; object-fit:cover;
+    scroll-snap-align:start; background:var(--accent-soft);
   }
-  footer h2{
-    font-size:13px;
-    font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
-    color:var(--ink-soft);
-    font-weight:500;
-    margin:0 0 18px;
-    letter-spacing:0.02em;
+  .car-btn{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:32px; height:32px; border-radius:50%; border:1px solid var(--line);
+    background:var(--bg); color:var(--ink); font-size:16px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
   }
-  .contacts{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px 22px;
+  .car-btn:hover{ border-color:var(--accent); color:var(--accent); }
+  .car-btn.prev{ left:10px; } .car-btn.next{ right:10px; }
+  .car-dots{ display:flex; gap:6px; justify-content:center; margin-top:10px; }
+  .car-dots button{
+    width:6px; height:6px; border-radius:50%; border:none; padding:0;
+    background:var(--line); cursor:pointer;
   }
-  .contacts a{
-    color:var(--ink);
-    text-decoration:none;
-    font-size:15.5px;
-    padding-bottom:2px;
-    border-bottom:1px solid var(--line);
-  }
-  .contacts a:hover{border-bottom-color:var(--accent); color:var(--accent);}
-  @media (max-width:480px){
-    .wrap{padding:48px 20px 72px;}
-    h1{font-size:28px;}
-  }
+  .car-dots button.active{ background:var(--accent); }
+
+  footer{ margin-top:72px; padding-top:28px; border-top:1px solid var(--line); }
+  footer h2{ font-family:var(--mono); font-size:13px; color:var(--ink-soft); font-weight:500; margin:0 0 18px; letter-spacing:.02em; }
+  .contacts{ display:flex; flex-wrap:wrap; gap:10px 22px; }
+  .contacts a{ color:var(--ink); text-decoration:none; font-size:15.5px; padding-bottom:2px; border-bottom:1px solid var(--line); }
+  .contacts a:hover{ border-bottom-color:var(--accent); color:var(--accent); }
+
+  @media (max-width:480px){ .wrap{padding:48px 20px 72px;} h1{font-size:26px;} }
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <p class="role">разработчик · digital products</p>
-    <h1>Константин Хмелёв</h1>
-    <p class="lede">Делаю рабочие цифровые продукты с помощью ИИ-инструментов: от идеи до запуска — быстро и без раздутой команды.</p>
+    <!-- Замените на images/avatar.jpg (квадрат, 400x400px+) -->
+    <img class="avatar" src="images/avatar.webp" alt="Константин Хмелёв">
+    <div>
+      <p class="role">разработчик · digital products</p>
+      <h1>Константин Хмелёв</h1>
+    </div>
   </header>
+
+  <p class="lede" style="margin:-44px 0 56px;">Делаю рабочие цифровые продукты с помощью ИИ-инструментов: от идеи до запуска — быстро и без раздутой команды.</p>
 
   <section>
     <h2>проекты</h2>
 
     <div class="project">
       <div class="project-top">
-        <h3 class="project-name">Tutor-Pro</h3>
+        <h3 class="project-name">Tutor Pro</h3>
         <span class="status">в проде</span>
       </div>
+      <!-- Замените на images/tutorpro-1.jpg (скриншот главного экрана, 1280x720) -->
+      <img class="shot" src="images/tutorpro-1.webp" alt="Интерфейс Tutor Pro">
       <p>Платформа для репетиторов: ученики, расписание занятий и оплата в одном месте.</p>
-      <a href="https://tutor-pro.online/" target="_blank" rel="noopener">tutor-pro.online</a>
+      <a class="link" href="https://tutor-pro.online/" target="_blank" rel="noopener">tutor-pro.online</a>
     </div>
 
     <div class="project">
@@ -159,8 +119,31 @@
         <h3 class="project-name">TeachChem</h3>
         <span class="status">в проде</span>
       </div>
+      <!-- Замените на images/teachchem-1.jpg (скриншот главного экрана, 1280x720) -->
+      <img class="shot" src="images/teachchem-1.webp" alt="Интерфейс TeachChem">
       <p>Образовательный сервис по химии с интерактивными материалами для изучения.</p>
-      <a href="https://teachchem.ru/" target="_blank" rel="noopener">teachchem.ru</a>
+      <a class="link" href="https://teachchem.ru/" target="_blank" rel="noopener">teachchem.ru</a>
+    </div>
+
+    <!-- Пример проекта без публичной ссылки — карусель из нескольких скриншотов.
+         Скопируйте этот блок для каждого локального проекта, поменяв id карусели и картинки. -->
+    <div class="project">
+      <div class="project-top">
+        <h3 class="project-name">Название проекта</h3>
+        <span class="status local">локально</span>
+      </div>
+      <div class="carousel" data-carousel>
+        <div class="car-track">
+          <!-- images/project-1.jpg, project-2.jpg, project-3.jpg — 1280x720 каждый -->
+          <img src="images/project-N1.webp" alt="Экран 1">
+          <img src="images/project-N2.webp" alt="Экран 2">
+          <img src="images/project-N3.webp" alt="Экран 3">
+        </div>
+        <button class="car-btn prev" aria-label="Предыдущий">‹</button>
+        <button class="car-btn next" aria-label="Следующий">›</button>
+        <div class="car-dots"></div>
+      </div>
+      <p>Короткое описание того, что делает проект и для кого он.</p>
     </div>
   </section>
 
@@ -169,10 +152,37 @@
     <div class="contacts">
       <a href="mailto:oldmaster@list.ru">Email</a>
       <a href="https://t.me/teachchem_admin" target="_blank" rel="noopener">Telegram</a>
-      <a href="https://vk.ru/khmelyov70" target="_blank" rel="noopener">VK</a>
+      <a href="https://vk.com/khmelyov70" target="_blank" rel="noopener">VK</a>
     </div>
   </footer>
 
 </div>
+
+<script>
+document.querySelectorAll('[data-carousel]').forEach(function(car){
+  var track = car.querySelector('.car-track');
+  var imgs = track.querySelectorAll('img');
+  var dotsWrap = car.querySelector('.car-dots');
+  imgs.forEach(function(_, i){
+    var b = document.createElement('button');
+    if (i === 0) b.className = 'active';
+    b.addEventListener('click', function(){
+      track.scrollTo({ left: track.clientWidth * i, behavior: 'smooth' });
+    });
+    dotsWrap.appendChild(b);
+  });
+  var dots = dotsWrap.querySelectorAll('button');
+  car.querySelector('.prev').addEventListener('click', function(){
+    track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
+  });
+  car.querySelector('.next').addEventListener('click', function(){
+    track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+  });
+  track.addEventListener('scroll', function(){
+    var idx = Math.round(track.scrollLeft / track.clientWidth);
+    dots.forEach(function(d, i){ d.classList.toggle('active', i === idx); });
+  });
+});
+</script>
 </body>
 </html>
